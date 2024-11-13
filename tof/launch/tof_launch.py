@@ -31,6 +31,23 @@ def generate_launch_description():
             name='multiarray_to_pointcloud',
             output='screen',
         ),
+        
+        # servo_controllerの起動
+        Node(
+            package='tof',
+            executable='servo_controller',
+            name='servo_controller',
+            output='screen',
+        ),
+        # servo_tf_broadcasterの起動
+        Node(
+            package='tof',
+            executable='servo_tf_broadcaster',
+            name='servo_tf_broadcaster',
+            output='screen',
+        ),
+
+
 
         # URDFのロボット記述をロードするノード
         Node(

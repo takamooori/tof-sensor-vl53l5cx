@@ -47,7 +47,7 @@ private:
     }
 
     auto point_cloud = sensor_msgs::msg::PointCloud2();
-    point_cloud.header.frame_id = "depth_frame";
+    point_cloud.header.frame_id = "tof_link";
     point_cloud.header.stamp = this->get_clock()->now();
     point_cloud.height = kResolution;
     point_cloud.width = kResolution;
@@ -97,7 +97,7 @@ private:
   void publish_marker()
   {
     visualization_msgs::msg::Marker marker;
-    marker.header.frame_id = "depth_frame";
+    marker.header.frame_id = "tof_link";
     marker.header.stamp = rclcpp::Time();
     marker.id = 1;
     marker.type = visualization_msgs::msg::Marker::ARROW;

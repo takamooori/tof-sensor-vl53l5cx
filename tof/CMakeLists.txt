@@ -13,6 +13,9 @@ find_package(Boost REQUIRED COMPONENTS system)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
@@ -38,6 +41,12 @@ target_link_libraries(multiarray_to_pointcloud ${Boost_LIBRARIES})
 # add_executable(pointcloud_publisher src/pointcloud_publisher.cpp)
 # ament_target_dependencies(pointcloud_publisher rclcpp std_msgs sensor_msgs visualization_msgs geometry_msgs)
 
+add_executable(servo_controller src/servo_controller.cpp)
+ament_target_dependencies(servo_controller rclcpp std_msgs)
+
+add_executable(servo_tf_broadcaster src/servo_tf_broadcaster.cpp)
+ament_target_dependencies(servo_tf_broadcaster rclcpp tf2 tf2_ros tf2_geometry_msgs geometry_msgs std_msgs)
+
 install(TARGETS
   serial_node
   DESTINATION lib/${PROJECT_NAME})
@@ -54,6 +63,14 @@ install(DIRECTORY launch urdf
  #  install(TARGETS
  #  pointcloud_publisher
   # DESTINATION lib/${PROJECT_NAME})
+  
+install(TARGETS
+  servo_controller
+  DESTINATION lib/${PROJECT_NAME}
+)
+install(TARGETS
+  servo_tf_broadcaster
+  DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
